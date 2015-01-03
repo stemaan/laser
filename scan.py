@@ -7,6 +7,7 @@ import settings
 
 STEPPER_MOTOR_ANGLE = radians(1.8)
 LASER_ANGLE = radians(30)
+
 b = lambda i, w: (i + 1 - w/2) / 5.0
 to_milimeter = lambda row: row / 5.0
 
@@ -23,10 +24,11 @@ def find_brightest(img, step):
                 y_brightest = row
         l = b(x_brigtest, width) 
         r = l / sin(LASER_ANGLE)
-        x = r * cos(STEPPER_MOTOR_ANGLE*step)
-        y = r * sin(STEPPER_MOTOR_ANGLE*step)
-        z = to_milimeter(row)
-        pixels.append((x, y, z))
+        if r >=- 30 and r <= 60:
+            x = r * cos(STEPPER_MOTOR_ANGLE*step)
+            y = r * sin(STEPPER_MOTOR_ANGLE*step)
+            z = to_milimeter(row)
+            pixels.append((x, y, z))
     return pixels
 
 with open(path.join(settings.CORDS_DIR, 'cords.asc'), 'w') as data:
