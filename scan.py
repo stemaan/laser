@@ -15,7 +15,7 @@ def find_brightest(img, step):
     height, width = img.shape
     pixels = []
     for row in xrange(height):
-        brightest = 0
+        brightest = 150
         x_brigtest = y_brightest = 0  
         for col in xrange(width):
             if brightest < img[row, col]:
@@ -34,6 +34,7 @@ def find_brightest(img, step):
 with open(path.join(settings.CORDS_DIR, 'cords.asc'), 'w') as data:
     for step, img in enumerate(listdir(settings.IMAGES_DIR), 1):
         file_name = path.join(settings.IMAGES_DIR, img)
+        print 'processing:', file_name
         image = cv2.imread(file_name, cv.CV_LOAD_IMAGE_GRAYSCALE)
         result = find_brightest(image, step)
         cords = ['{} {} {}\n'.format(threes[0], threes[1], threes[2]) for threes in result]

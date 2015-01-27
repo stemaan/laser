@@ -14,9 +14,12 @@ serial_port = serial.Serial(PORT, RATE)
 print 'Initializing video stream...'
 time.sleep(5)
 capture = cv2.VideoCapture(CAMERA_PORT)
+# set video resolution
+capture.set(3, 800)
+capture.set(4, 600)
 print 'Video parameters:',
-print 'width=', capture.set(3, 1600),
-print 'height=', capture.set(4, 1200)
+print capture.get(3), 'x',
+print capture.get(4), '(width x height)'
 while True:
     serial_port.flush()
     ret, frame = capture.read()
